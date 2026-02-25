@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Butter & Salt</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --cream: #f8f1e4;
+      --warm-white: #fffdf7;
+      --brown: #4a2e1a;
+      --brown-mid: #7a4b2e;
+      --gold: #c9933a;
+      --gold-light: #e8c27a;
+      --sage: #8a9e7e;
+      --text: #2e1e10;
+      --text-light: #7a5c3e;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--warm-white);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 0 5vw;
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(255,253,247,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(201,147,58,0.18);
+    }
+
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--brown);
+      letter-spacing: 0.02em;
+    }
+
+    .nav-logo span { color: var(--gold); font-style: italic; }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text-light);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--gold); }
+
+    /* ── HERO ── */
+    #home {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 100px 5vw 60px;
+      gap: 4rem;
+      background: var(--cream);
+      position: relative;
+      overflow: hidden;
+    }
+
+    #home::before {
+      content: '';
+      position: absolute;
+      width: 600px; height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(201,147,58,0.12), transparent 70%);
+      top: -100px; right: -100px;
+      pointer-events: none;
+    }
+
+    .hero-text { animation: fadeUp 0.9s ease both; }
+
+    .hero-eyebrow {
+      font-size: 0.78rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 500;
+      margin-bottom: 1.2rem;
+    }
+
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 5vw, 5rem);
+      line-height: 1.08;
+      color: var(--brown);
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-title em { color: var(--gold); font-style: italic; }
+
+    .hero-desc {
+      font-size: 1.05rem;
+      line-height: 1.75;
+      color: var(--text-light);
+      max-width: 480px;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      padding: 0.85rem 2.2rem;
+      background: var(--gold);
+      color: #fff;
+      border-radius: 3px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.9rem;
+      letter-spacing: 0.05em;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .btn-primary:hover { background: var(--brown-mid); transform: translateY(-2px); }
+
+    .btn-outline {
+      padding: 0.85rem 2.2rem;
+      border: 1.5px solid var(--gold);
+      color: var(--gold);
+      border-radius: 3px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.9rem;
+      letter-spacing: 0.05em;
+      transition: all 0.2s;
+    }
+    .btn-outline:hover { background: var(--gold); color: #fff; }
+
+    .hero-img-wrap {
+      position: relative;
+      animation: fadeUp 0.9s 0.2s ease both;
+    }
+
+    .hero-main-img {
+      width: 100%;
+      aspect-ratio: 4/5;
+      object-fit: cover;
+      border-radius: 4px;
+      display: block;
+      background: #ddd;
+    }
+
+    .hero-img-accent {
+      position: absolute;
+      bottom: -28px;
+      left: -28px;
+      width: 52%;
+      aspect-ratio: 1;
+      object-fit: cover;
+      border-radius: 4px;
+      border: 6px solid var(--warm-white);
+      background: #e0d5c0;
+    }
+
+    .img-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #e8d8bf, #d4c5a8);
+      border-radius: 4px;
+      color: var(--brown-mid);
+      font-size: 0.85rem;
+      gap: 0.5rem;
+      text-align: center;
+      padding: 1rem;
+    }
+
+    .img-placeholder svg { opacity: 0.5; }
+
+    /* ── SECTION COMMONS ── */
+    section { padding: 90px 5vw; }
+
+    .section-eyebrow {
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 500;
+      margin-bottom: 0.8rem;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.9rem, 3.5vw, 3rem);
+      color: var(--brown);
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+
+    .section-sub {
+      font-size: 1rem;
+      color: var(--text-light);
+      line-height: 1.7;
+      max-width: 560px;
+    }
+
+    /* ── LAYANAN / SERVICES ── */
+    #layanan { background: var(--warm-white); }
+
+    .services-header { text-align: center; margin-bottom: 4rem; }
+    .services-header .section-sub { margin: 0 auto; }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .service-card {
+      border-radius: 6px;
+      overflow: hidden;
+      background: var(--cream);
+      transition: transform 0.3s, box-shadow 0.3s;
+      cursor: default;
+    }
+
+    .service-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 50px rgba(74,46,26,0.12);
+    }
+
+    .service-img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      display: block;
+      background: linear-gradient(135deg, #e8d8bf, #d4c5a8);
+    }
+
+    .service-body {
+      padding: 1.5rem 1.6rem 1.8rem;
+    }
+
+    .service-tag {
+      display: inline-block;
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      background: rgba(201,147,58,0.12);
+      padding: 0.3rem 0.7rem;
+      border-radius: 2px;
+      margin-bottom: 0.8rem;
+    }
+
+    .service-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      color: var(--brown);
+      margin-bottom: 0.6rem;
+    }
+
+    .service-desc {
+      font-size: 0.9rem;
+      color: var(--text-light);
+      line-height: 1.65;
+    }
+
+    /* ── GALERI ── */
+    #galeri { background: var(--cream); }
+
+    .galeri-header { margin-bottom: 3rem; }
+
+    .galeri-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: auto;
+      gap: 1.2rem;
+    }
+
+    .galeri-item {
+      overflow: hidden;
+      border-radius: 4px;
+      background: linear-gradient(135deg, #e8d8bf, #d4c5a8);
+    }
+
+    .galeri-item:nth-child(1) { grid-column: 1 / 3; grid-row: 1; }
+    .galeri-item:nth-child(4) { grid-column: 2 / 4; grid-row: 2; }
+
+    .galeri-img {
+      width: 100%;
+      height: 100%;
+      min-height: 220px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+
+    .galeri-item:hover .galeri-img { transform: scale(1.04); }
+
+    /* ── ABOUT ── */
+    #tentang {
+      background: var(--brown);
+      color: var(--cream);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+
+    #tentang .section-title { color: var(--gold-light); }
+    #tentang .section-sub { color: rgba(248,241,228,0.8); max-width: none; }
+
+    .about-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-top: 2.5rem;
+    }
+
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      color: var(--gold-light);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 0.85rem;
+      color: rgba(248,241,228,0.65);
+      margin-top: 0.3rem;
+    }
+
+    .about-img-wrap { position: relative; }
+
+    .about-main-img {
+      width: 100%;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+      border-radius: 4px;
+      display: block;
+      background: rgba(255,255,255,0.08);
+    }
+
+    .about-deco {
+      position: absolute;
+      top: -20px; right: -20px;
+      width: 40%;
+      aspect-ratio: 1;
+      border: 2px solid var(--gold);
+      border-radius: 4px;
+      opacity: 0.35;
+      pointer-events: none;
+    }
+
+    /* ── CONTACT ── */
+    #kontak { background: var(--warm-white); }
+
+    .kontak-inner {
+      max-width: 700px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .kontak-inner .section-sub { margin: 0 auto 3rem; }
+
+    .contact-btns {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .contact-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      padding: 1rem 2.4rem;
+      border-radius: 4px;
+      font-weight: 500;
+      font-size: 1rem;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .contact-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+    }
+
+    .contact-btn.wa {
+      background: #25D366;
+      color: #fff;
+    }
+
+    .contact-btn.ig {
+      background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+      color: #fff;
+    }
+
+    .contact-btn svg { flex-shrink: 0; }
+
+    .contact-tagline {
+      margin-top: 2.5rem;
+      font-size: 0.9rem;
+      color: var(--text-light);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--brown);
+      color: rgba(248,241,228,0.6);
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.85rem;
+    }
+
+    footer strong { color: var(--gold-light); }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      #home { grid-template-columns: 1fr; padding-top: 90px; }
+      .hero-img-accent { display: none; }
+      #tentang { grid-template-columns: 1fr; padding: 60px 5vw; }
+      .about-img-wrap { order: -1; }
+      .galeri-grid { grid-template-columns: 1fr 1fr; }
+      .galeri-item:nth-child(1),
+      .galeri-item:nth-child(4) { grid-column: auto; }
+      .nav-links { display: none; }
+    }
+
+    /* ── DIVIDER ── */
+    .wave-divider {
+      width: 100%;
+      overflow: hidden;
+      line-height: 0;
+    }
+    .wave-divider svg { display: block; }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Butter <span>&</span> Salt</div>
+  <ul class="nav-links">
+    <li><a href="#home">Beranda</a></li>
+    <li><a href="#layanan">Layanan</a></li>
+    <li><a href="#galeri">Galeri</a></li>
+    <li><a href="#tentang">Tentang</a></li>
+    <li><a href="#kontak">Kontak</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="home">
+  <div class="hero-text">
+    <p class="hero-eyebrow">Homemade with love · Est. 2023</p>
+    <h1 class="hero-title">Cita Rasa <em>Rumahan</em><br>yang Tak Terlupakan</h1>
+    <p class="hero-desc">
+      Dari kue lebaran yang lumer di mulut, catering rumahan penuh kehangatan, hingga prasmanan megah untuk acara spesialmu — semua hadir dari dapur Butter & Salt.
+    </p>
+    <div class="hero-cta">
+      <a href="#layanan" class="btn-primary">Lihat Layanan</a>
+      <a href="#kontak" class="btn-outline">Pesan Sekarang</a>
+    </div>
+  </div>
+
+  <div class="hero-img-wrap">
+    <!-- Ganti src="" dengan link foto utama kamu -->
+    <div style="width:100%; aspect-ratio:4/5; position:relative;">
+      <div class="img-placeholder" style="aspect-ratio:4/5; position:absolute; inset:0;">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+        <span>Foto Utama<br>Produk Unggulan</span>
+      </div>
+    </div>
+    <div class="hero-img-accent img-placeholder" style="position:absolute; bottom:-28px; left:-28px; width:52%; aspect-ratio:1; border: 6px solid var(--warm-white); border-radius:4px; z-index:2;">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+      <span style="font-size:0.75rem">Foto Kedua</span>
+    </div>
+  </div>
+</section>
+
+<!-- LAYANAN -->
+<section id="layanan">
+  <div class="services-header">
+    <p class="section-eyebrow">Apa yang Kami Sajikan</p>
+    <h2 class="section-title">Layanan Kami</h2>
+    <p class="section-sub">Tersedia berbagai pilihan untuk memenuhi kebutuhan kulinermu — dari acara keluarga kecil hingga event besar sekalipun.</p>
+  </div>
+
+  <div class="services-grid">
+
+    <!-- 1 -->
+    <div class="service-card">
+      <div class="img-placeholder service-img">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+        <span style="font-size:0.8rem">Foto Kue Lebaran</span>
+      </div>
+      <div class="service-body">
+        <span class="service-tag">Musiman</span>
+        <h3 class="service-name">Pastry & Kue Lebaran</h3>
+        <p class="service-desc">Kue kering premium dengan bahan pilihan — nastar, kastengel, putri salju, dan banyak lagi. Cocok untuk hantaran maupun hampers Lebaran.</p>
+      </div>
+    </div>
+
+    <!-- 2 -->
+    <div class="service-card">
+      <div class="img-placeholder service-img">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+        <span style="font-size:0.8rem">Foto Catering Rumahan</span>
+      </div>
+      <div class="service-body">
+        <span class="service-tag">Harian</span>
+        <h3 class="service-name">Home Catering</h3>
+        <p class="service-desc">Masakan rumahan yang lezat dan bergizi untuk keluargamu setiap hari. Pesan mingguan atau bulanan, kami siap mengurus menu harianmu.</p>
+      </div>
+    </div>
+
+    <!-- 3 -->
+    <div class="service-card">
+      <div class="img-placeholder service-img">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+        <span style="font-size:0.8rem">Foto Catering Sekolah</span>
+      </div>
+      <div class="service-body">
+        <span class="service-tag">Reguler</span>
+        <h3 class="service-name">Catering Sekolah</h3>
+        <p class="service-desc">Menu bergizi seimbang untuk anak-anak sekolah. Disiapkan higienis, penuh variasi, dan bikin si kecil semangat belajar sepanjang hari.</p>
+      </div>
+    </div>
+
+    <!-- 4 -->
+    <div class="service-card">
+      <div class="img-placeholder service-img">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+        <span style="font-size:0.8rem">Foto Frozen Food</span>
+      </div>
+      <div class="service-body">
+        <span class="service-tag">Ready Stock</span>
+        <h3 class="service-name">Frozen Food</h3>
+        <p class="service-desc">Stok lauk beku siap masak dengan cita rasa otentik. Praktis, awet, dan tetap lezat — solusi sempurna untuk kesibukan sehari-hari.</p>
+      </div>
+    </div>
+
+    <!-- 5 -->
+    <div class="service-card">
+      <div class="img-placeholder service-img">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+        <span style="font-size:0.8rem">Foto Prasmanan</span>
+      </div>
+      <div class="service-body">
+        <span class="service-tag">Event</span>
+        <h3 class="service-name">Prasmanan / Buffet</h3>
+        <p class="service-desc">Sajian prasmanan lengkap untuk pernikahan, arisan, syukuran, hingga acara korporat. Mulai dari dekorasi meja hingga variasi menu yang menggugah selera.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- GALERI -->
+<section id="galeri">
+  <div class="galeri-header">
+    <p class="section-eyebrow">Portofolio</p>
+    <h2 class="section-title">Galeri Kami</h2>
+    <p class="section-sub">Setiap hidangan dibuat dengan sepenuh hati. Intip sebagian karya dapur kami di sini.</p>
+  </div>
+
+  <div class="galeri-grid">
+    <div class="galeri-item">
+      <div class="galeri-img img-placeholder" style="min-height:300px;">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+        <span style="font-size:0.8rem">Foto 1 (lebar)</span>
+      </div>
+    </div>
+    <div class="galeri-item">
+      <div class="galeri-img img-placeholder" style="min-height:300px;">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+        <span style="font-size:0.8rem">Foto 2</span>
+      </div>
+    </div>
+    <div class="galeri-item">
+      <div class="galeri-img img-placeholder" style="min-height:300px;">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+        <span style="font-size:0.8rem">Foto 3</span>
+      </div>
+    </div>
+    <div class="galeri-item">
+      <div class="galeri-img img-placeholder" style="min-height:300px;">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+        <span style="font-size:0.8rem">Foto 4 (lebar)</span>
+      </div>
+    </div>
+    <div class="galeri-item">
+      <div class="galeri-img img-placeholder" style="min-height:300px;">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+        <span style="font-size:0.8rem">Foto 5</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TENTANG -->
+<section id="tentang">
+  <div>
+    <p class="section-eyebrow" style="color:var(--gold-light)">Siapa Kami</p>
+    <h2 class="section-title">Dapur Penuh Cinta, Rasa yang Nyata</h2>
+    <p class="section-sub">
+      Butter & Salt lahir dari kecintaan terhadap masakan rumahan yang otentik. Kami percaya bahwa makanan terbaik adalah yang dibuat dengan bahan segar, takaran tepat, dan hati yang tulus — seperti masakan ibu di rumah.
+    </p>
+    <p class="section-sub" style="margin-top:1rem;">
+      Mulai dari kue lebaran hingga prasmanan besar, kami hadir untuk memastikan setiap momen spesialmu ditemani hidangan yang berkesan.
+    </p>
+    <div class="about-stats">
+      <div>
+        <div class="stat-num">5+</div>
+        <div class="stat-label">Layanan Tersedia</div>
+      </div>
+      <div>
+        <div class="stat-num">100%</div>
+        <div class="stat-label">Bahan Berkualitas</div>
+      </div>
+      <div>
+        <div class="stat-num">★ 5</div>
+        <div class="stat-label">Rating Pelanggan</div>
+      </div>
+      <div>
+        <div class="stat-num">Home</div>
+        <div class="stat-label">Made with Love</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="about-img-wrap">
+    <div class="about-deco"></div>
+    <div class="img-placeholder about-main-img" style="aspect-ratio:3/4;">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="rgba(248,241,228,0.5)" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+      <span style="color:rgba(248,241,228,0.5); font-size:0.85rem">Foto Tim / Dapur</span>
+    </div>
+  </div>
+</section>
+
+<!-- KONTAK -->
+<section id="kontak">
+  <div class="kontak-inner">
+    <p class="section-eyebrow">Hubungi Kami</p>
+    <h2 class="section-title">Yuk, Pesan Sekarang!</h2>
+    <p class="section-sub">
+      Ada pertanyaan, mau pesan, atau sekadar ingin tahu lebih? Langsung hubungi kami via WhatsApp atau cek koleksi terbaru di Instagram kami.
+    </p>
+
+    <div class="contact-btns">
+      <!-- Ganti nomor WA: 628xxxxxxxxxx -->
+      <a href="https://wa.me/6289662017313" target="_blank" rel="noopener" class="contact-btn wa">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        WhatsApp
+      </a>
+
+      <!-- Ganti username IG: butterandsalt -->
+      <a href="https://instagram.com/butterandsaltkitchen" target="_blank" rel="noopener" class="contact-btn ig">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+        Instagram
+      </a>
+    </div>
+
+    <p class="contact-tagline">Kami siap melayani pesananmu dengan sepenuh hati 🧁</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2025 <strong>Butter & Salt</strong> — Homemade with ♥</p>
+</footer>
+
+</body>
+</html>
